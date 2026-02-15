@@ -88,14 +88,12 @@ const handleLogin = async () => {
   await loginFormRef.value.validate(async (valid) => {
     if (valid) {
       try {
-        // 发起登录请求
         const response = await login(loginForm.value.username, loginForm.value.password)
         
         if (response.success) {
-          // 保存访问令牌
           localStorage.setItem('access_token', response.data.access_token)
+          localStorage.setItem('refresh_token', response.data.refresh_token)
           
-          // 记住登录信息
           if (loginForm.value.remember) {
             localStorage.setItem('rememberedLogin', JSON.stringify(loginForm.value))
           } else {
